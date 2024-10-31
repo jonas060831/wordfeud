@@ -1,4 +1,4 @@
-import {level_1, level_2} from "./data.js";
+import {level_1, level_2, level_3} from "./data.js";
 
 const submitButton = document.querySelector('#submit_button')
 const pointContainer = document.querySelector('#point_container')
@@ -16,9 +16,8 @@ let failed_attempt = 0
 
 submitButton.addEventListener('click', handleSubmit)
 
-function handleSubmit(event) {
+function handleSubmit() {
 
-    console.log(event)
     
     //get the value and then make it lowercase then remove whitespace
     const inputValue = input_text_answer.value.toLowerCase().trim()
@@ -48,49 +47,24 @@ function checkValidAnswerOnSpecificLevel() {
     const level = game_progression.level
 
 
+    //this will return true or false
+    //if it exist inside accepted_array then this will return true
+    const isAlreadyInAcceptedAnswerArray = !isNotInAcceptedAnswerArray(inputValue)
+
+
     //game level with type number inside game_progression object
     if(level === 1) {
 
         
-        //i want to check if the user input matches correct answer inside the array
-        const result = checkIfAnswerHasMatch(inputValue)
-
-        //this will return true or false
-        //if it exist inside accepted_array then this will return true
-        const isAlreadyInAcceptedAnswerArray = !isNotInAcceptedAnswerArray(inputValue)
-
-        //if its in a correct answer
-        //and it does not exist inside accepted_answer array
-        if(result.matchFound && isNotInAcceptedAnswerArray(inputValue)) {
-
-            //push it to answered array
-            accepted_answer.push(inputValue)
-
-            //update score
-            updateUIScore(result.point)
-            
-
-        }  else if (isAlreadyInAcceptedAnswerArray) { 
-            //there is a match but it already exist inside accepted_answer_array
-            //so we cannot increase the score
-            alert('you cannot repeat your answer')
-        } else {
-            //no match add an x mark
-            alert('no match')
-
-            //increase the failed attempt
-            failed_attempt++
-
-            //clear the input text
-            clearInputTextAnswer()
-            
-        }
+        levelGameMechanics(inputValue, isAlreadyInAcceptedAnswerArray)
 
     } else if(level === 2) {
 
+        
+        levelGameMechanics(inputValue, isAlreadyInAcceptedAnswerArray)
 
     } else if(level === 3) {
-
+        levelGameMechanics(inputValue, isAlreadyInAcceptedAnswerArray)
     }
 
     updateWrongAnswerLabel()
@@ -100,7 +74,6 @@ const isNotInAcceptedAnswerArray = (answerString) => {
     let isNotInArray = true
 
     accepted_answer.find( answer => {
-        console.log(answer)
         if(answerString === answer) isNotInArray = false
     })
 
@@ -115,18 +88,19 @@ const checkIfAnswerHasMatch = answerString => {
     
     let matchFound = false
     let point = 0
+    let answer = ''
     game_progression.current_level.array_of_answer_and_points.find( option => {
         
         if(option.answer === answerString) {
             //there is a match increase score
             matchFound = true
             point = option.point
-            
+            answer = option.answer
             
         }
     })
 
-    return { matchFound, point }
+    return { matchFound, point, answer }
 }
 
 
@@ -136,11 +110,18 @@ const checkIfAnswerHasMatch = answerString => {
 
 
 // ********************* GAME PROGRESSION ********************* 
+
+const levels = [level_1, level_2, level_3]
 
 const game_progression = {
     level: 1,
     score: score,
-    current_level: level_1,  
+    current_level: level_1,
+    goToNextLevel: () => {
+        game_progression.level = game_progression.level += 1
+        game_progression.current_level = levels[game_progression.level - 1]
+        gameProgressionUI()
+    },  
 }
 
 // ********************* GAME PROGRESSION ********************* 
@@ -149,7 +130,56 @@ const game_progression = {
 
 
 
+export const levelGameMechanics = (inputValue, isAlreadyInAcceptedAnswerArray) => {
+    //i want to check if the user input matches correct answer inside the array
+    const result = checkIfAnswerHasMatch(inputValue)
 
+    
+    //if its in a correct answer
+    //and it does not exist inside accepted_answer array
+    if(result.matchFound && isNotInAcceptedAnswerArray(inputValue)) {
+
+        //push it to answered array
+        accepted_answer.push(inputValue)
+
+        //update score
+        updateUIScore(result.point)
+
+        //update the ui so the correct answer will reveal by changing the text color
+        let liCorrectAnswer = document.querySelector(`.${result.answer}`)
+        liCorrectAnswer.style.color = 'white'
+        
+        if(game_progression.current_level.required_number_of_correct_answer === accepted_answer.length) {
+            alert(`Congratulations You pass Level: ${game_progression.level}`)
+            
+            //reset accepted answer array
+            accepted_answer = []
+
+            failed_attempt = 0;
+
+            //go to next level
+            game_progression.goToNextLevel()
+
+        }
+
+    }  else if (isAlreadyInAcceptedAnswerArray) { 
+        //there is a match but it already exist inside accepted_answer_array
+        //so we cannot increase the score
+        alert('you cannot repeat your answer')
+    } else {
+        //no match add an x mark
+        alert('no match')
+
+        //increase the failed attempt
+        failed_attempt++
+
+        //clear the input text
+        clearInputTextAnswer()
+
+        
+        
+    }
+}
 
 
 
@@ -175,6 +205,8 @@ const updateUIScore = (point) => {
 
 const updateUIListOfAnswers = () => {
 
+    //clear first for clean slate
+    list_of_answers_container.innerHTML = ''
     //create an ol and li dynamically base on the current level
     const ol = document.createElement('ol')
     
@@ -183,7 +215,9 @@ const updateUIListOfAnswers = () => {
 
         //i now have the value now i need to add it to li
         const li = document.createElement('li')
-
+        //so it will blend in the background and wont be visible
+        li.style.color = 'var(--game_main_color)'
+        li.classList.add(`${option.answer}`)
         const stringSpan = `
         <span
          style="
@@ -203,6 +237,7 @@ const updateUIListOfAnswers = () => {
         `
         li.innerHTML = `${option.answer.toUpperCase()} ${stringSpan}`
         ol.appendChild(li)
+
     })
 
 
@@ -212,12 +247,10 @@ const updateUIListOfAnswers = () => {
 
 const updateWrongAnswerLabel = () => {
 
-    //update the label
+    //add x mark whenever the answer is incorrect
     
     let x_mark = ''
 
-
-    
     for (let index = 1; index <= failed_attempt; index++) {
         wrong_answer_label.style.visibility = 'visible'
         x_mark += '❌'

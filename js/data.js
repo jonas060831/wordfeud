@@ -1,5 +1,6 @@
 export const level_1 = {
     host_said: `We surveyed California what are the famous GEN Z acronym ? \n\nSurvey says.`,
+    required_number_of_correct_answer: 5,
     array_of_answer_and_points: [
         {
             answer: 'wdym',
@@ -25,27 +26,55 @@ export const level_1 = {
 }
 
 export const level_2 = {
-    host_said: `Yow What is up`,
+    host_said: `We surveyed ages 30 ~ 50 top 6 moods of kids right now ? \n\nSurvey says.`,
+    required_number_of_correct_answer: 6,
     array_of_answer_and_points: [
         {
-            answer: 'highest option',
+            answer: 'happy',
+            point: 29
+        },
+        {
+            answer: 'anxious',
+            point: 26
+        },
+        {
+            answer: 'excited',
+            point: 24
+        },
+        {
+            answer: 'inspired',
+            point: 14
+        },
+        {
+            answer: 'relaxed',
+            point: 5
+        },
+        {
+            answer: 'focused',
+            point: 2
+        }
+    ]
+}
+
+export const level_3 = {
+    host_said: `favourite food of the American People. \n\nSurvey says.`,
+    required_number_of_correct_answer: 6,
+    array_of_answer_and_points: [
+        {
+            answer: 'lumpia',
+            point: 35
+        },
+        {
+            answer: 'sushi',
             point: 30
         },
         {
-            answer: 'second',
-            point: 25
+            answer: 'burger',
+            point: 20
         },
         {
-            answer: 'third',
-            point: 28
-        },
-        {
-            answer: 'fourth',
-            point: 22
-        },
-        {
-            answer: 'fift',
-            point: 5
+            answer: 'pizza',
+            point: 15
         }
     ]
 }

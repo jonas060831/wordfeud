@@ -58,6 +58,10 @@ nav {
     font-family: Rammetto One,system-ui,Arial;
 }
 
+.input_container [type='text']:focus {
+    border-color: orange;
+}
+
 .input_container [type='button'] {
     background: none;
     border: none;
