@@ -53,18 +53,11 @@ function checkValidAnswerOnSpecificLevel() {
 
 
     //game level with type number inside game_progression object
-    if(level === 1) {
+    if(level >= 1 && level <= 3) {
 
         
         levelGameMechanics(inputValue, isAlreadyInAcceptedAnswerArray)
 
-    } else if(level === 2) {
-
-        
-        levelGameMechanics(inputValue, isAlreadyInAcceptedAnswerArray)
-
-    } else if(level === 3) {
-        levelGameMechanics(inputValue, isAlreadyInAcceptedAnswerArray)
     }
 
     updateWrongAnswerLabel()
@@ -148,6 +141,11 @@ export const levelGameMechanics = (inputValue, isAlreadyInAcceptedAnswerArray) =
         //update the ui so the correct answer will reveal by changing the text color
         let liCorrectAnswer = document.querySelector(`.${result.answer}`)
         liCorrectAnswer.style.color = 'white'
+
+        //after correct answer go and focus the cursor to the input
+        //https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus
+        input_text_answer.focus()
+        
         
         if(game_progression.current_level.required_number_of_correct_answer === accepted_answer.length) {
             alert(`Congratulations You pass Level: ${game_progression.level}`)
@@ -168,7 +166,7 @@ export const levelGameMechanics = (inputValue, isAlreadyInAcceptedAnswerArray) =
         alert('you cannot repeat your answer')
     } else {
         //no match add an x mark
-        alert('no match')
+        alert('survey says no')
 
         //increase the failed attempt
         failed_attempt++
@@ -246,7 +244,7 @@ const updateUIListOfAnswers = () => {
 }
 
 const updateWrongAnswerLabel = () => {
-
+    wrong_answer_label.innerText = ''
     //add x mark whenever the answer is incorrect
     
     let x_mark = ''
@@ -257,7 +255,10 @@ const updateWrongAnswerLabel = () => {
         
     }
     
-    wrong_answer_label.innerText = `Wrong Answer: ${x_mark}`
+    if(failed_attempt >= 1) {
+        wrong_answer_label.innerText = `Wrong Answer: ${x_mark}`
+    }
+    
 }
 
 const checkFailedAttempt = () => {
