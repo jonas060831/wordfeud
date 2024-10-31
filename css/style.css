@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Rammetto+One&display=swap');
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --game_main_color: #26254d;
+    --game_border_color: #a03406;
+}
+
+body {
+    font-family: system-ui, Arial, Helvetica, sans-serif;
+    background-color: var(--game_main_color)
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    height: 10vw;
+    align-items: center;
+    color: white;
+}
+
+.input_container {
+    position: absolute;
+    bottom: 0;
+    height: 10rem;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    color: white;
+}
+
+#input_text_and_button {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.input_container [type='text'] {
+    border-radius: 100vw;
+    background: none;
+    border: 3px solid white;
+    height: 30px;
+    width: 100%;
+    max-width: 800px;
+    padding: 1rem;
+    color: white;
+    outline: none;
+    font-size: 16px;
+    font-family: Rammetto One,system-ui,Arial;
+}
+
+.input_container [type='button'] {
+    background: none;
+    border: none;
+    height: 30px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: Rammetto One, 'system-ui', Arial;
+}
+
+.input_container [type='button']:hover {
+    color: orange;
+}
+
+.game_container {
+    margin-top: 2rem;
+    width: 100vw;
+    height: 60vh;
+    background: url(/public/images/small_light.png);
+    display: flex;
+    flex-direction: column;
+}
+
+#point_container {
+    background-color: var(--game_main_color);
+    height: 100px;
+    width: 150px;
+    color: white;
+    border: 2px solid var(--game_border_color);
+    border-radius: 5px;
+    margin: 0px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    margin-top: -3rem;
+    box-shadow: 0px -3px 3px 3px rgba(237, 195, 117, 0.312);
+}
+
+#question_container {
+    background: linear-gradient(rgba(0, 0, 0, 0.826), rgba(0, 0, 255, 0.665));
+    width: auto;
+    height: 100px;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: larger;
+}
+
+
+#list_of_answers_container {
+    width: 100%;
+    height: 30vh;
+    margin-top: 2rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+#list_of_answers_container ol {
+    display: flex;
+    gap: 4rem;
+    flex-wrap: wrap;
+    max-width: 700px;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 10px;
+    margin-top: 2rem;
+    padding: 2rem;
+    background: linear-gradient(rgba(255, 179, 0, 0.323), var(--game_main_color));
+}
+
+
+#list_of_answers_container ol li {
+    background-color: var(--game_main_color);
+    border-radius: 10px;
+    border: 2px solid var(--game_border_color);
+    width: 200px;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 5px;
+}
+
+
+
+/* desktop only */
+@media (min-width: 768px) and (max-width: 5000px) {
+    
+    .input_container {
+        text-align: center;
+    }
+    .logo-container img {
+        width: 20%;
+    }
+    
+}
+
+/* tablet */
+@media (min-width: 481px) and (max-width: 767px) {
+    .logo-container img {
+        width: 20%;
+    }
+}
+/* phones */
+@media (min-width: 320px) and (max-width: 480px) {
+    nav {
+        margin-top: 1rem;
+    }
+    .logo-container img {
+        width: 30%;
+    }
+    #background_music {
+        width: 15px;
+        margin-right: 1rem;
+    }
+
+    .input_container {
+        text-align: left;
+        padding: 0rem 1rem 0rem 1rem
+    }
+    #point_container {
+        width: 80px;
+        height: 40px;
+        font-size: larger;
+    }
+    #question_container {
+        font-size: 13px;
+        text-align: center;
+    }
+    #list_of_answers_container ol {
+        width: 100%;
+        margin: 0;
+        margin-top: 6rem;
+        padding-top: 3rem;
+        padding-left: 35px;
+        padding-right: 30px;
+        padding-bottom: 2rem;
+    }
+    #list_of_answers_container ol li {
+        width: 145px;
+    }
+}

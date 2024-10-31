@@ -5,9 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Word Feud</title>
     <link rel="stylesheet" href="./css/style.css">
-    <script defer src="./js/app.js"></script>
+    <script defer type="module" src="./js/app.js"></script>
 </head>
 <body>
     
+    <nav>
+        <div class="logo-container">
+            <img src="./public/images/word_feud_logo.png" alt="">
+        </div>
+
+        <!-- added audio controls on the nav bar -->
+        <audio
+         id="background_music"
+         controls
+         autoplay
+         loop
+        >
+            <source
+             src="./public/music/familyfeud_background_music.mp3"
+             type="audio/mpeg"
+            >
+        </audio>
+    </nav>
+
+
+    <!-- game body -->
+    <div class="game_container">
+
+        <div id="point_container">0</div>
+
+        <div id="question_container"></div>
+
+        <div id="list_of_answers_container"></div>
+    </div>
+
+    <div class="input_container">
+        
+        <div id="your_answer_label" style="visibility: hidden;">
+            Wrong Answer:
+        </div>
+        <div id="input_text_and_button">
+            <input id="input_text_answer" type="text">
+            <input id="submit_button" type="button" value="SUBMIT">
+        </div>
+    </div>
 </body>
 </html>
