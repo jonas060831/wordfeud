@@ -70,8 +70,12 @@ function checkValidAnswerOnSpecificLevel() {
 
         
         levelGameMechanics(inputValue, isAlreadyInAcceptedAnswerArray)
-
     }
+    
+
+    
+    
+    
 
     updateWrongAnswerLabel()
 }
@@ -164,6 +168,13 @@ export const levelGameMechanics = (inputValue, isAlreadyInAcceptedAnswerArray) =
         
         if(game_progression.current_level.required_number_of_correct_answer === accepted_answer.length) {
             alert(`Congratulations You pass Level: ${game_progression.level}`)
+
+
+            //finish the game in line 173 
+            if(game_progression.current_level.required_number_of_correct_answer === accepted_answer.length && game_progression.level === 3) {
+                alert(`Congratulations You finished with a scored of : ${score}`)
+                location.reload()
+            }
             
             //reset accepted answer array
             accepted_answer = []
@@ -199,11 +210,11 @@ const gameProgressionUI = () => {
 
     updateQuestionUI()
     updateUIListOfAnswers()
+    
 }
 
 const updateQuestionUI = () => {
     questionContainer.innerText = game_progression.current_level.host_said
-
 }
 
 const updateUIScore = point => {
