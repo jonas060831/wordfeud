@@ -26,7 +26,7 @@ export const level_1 = {
 }
 
 export const level_2 = {
-    host_said: `We surveyed ages 30 ~ 50 top 6 moods of kids right now ? \n\nSurvey says.`,
+    host_said: `We surveyed 30 ~ 50 people here are the top 6 moods of kids right now ? \n\nSurvey says.`,
     required_number_of_correct_answer: 6,
     array_of_answer_and_points: [
         {

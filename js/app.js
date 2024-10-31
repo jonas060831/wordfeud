@@ -1,5 +1,6 @@
 import {level_1, level_2, level_3} from "./data.js";
 
+const backgroundMusic = document.querySelector('#background_music')
 const submitButton = document.querySelector('#submit_button')
 const pointContainer = document.querySelector('#point_container')
 const questionContainer = document.querySelector('#question_container')
@@ -8,17 +9,26 @@ const input_text_answer = document.querySelector('#input_text_answer')
 const wrong_answer_label = document.querySelector('#your_answer_label')
 
 
+
 let score = 0
 
 let failed_attempt = 0
 
-
-
 submitButton.addEventListener('click', handleSubmit)
+
+//when the user press the enter key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        backgroundMusic.play()
+        handleSubmit()
+    }
+});
 
 function handleSubmit() {
 
-    
+    //play the music
+    backgroundMusic.play()
+
     //get the value and then make it lowercase then remove whitespace
     const inputValue = input_text_answer.value.toLowerCase().trim()
 
@@ -37,6 +47,9 @@ function handleSubmit() {
 
     checkFailedAttempt()
 }
+
+
+
 
 let accepted_answer = []
 function checkValidAnswerOnSpecificLevel() {
@@ -97,11 +110,6 @@ const checkIfAnswerHasMatch = answerString => {
 }
 
 
-
-
-
-
-
 // ********************* GAME PROGRESSION ********************* 
 
 const levels = [level_1, level_2, level_3]
@@ -113,6 +121,7 @@ const game_progression = {
     goToNextLevel: () => {
         game_progression.level = game_progression.level += 1
         game_progression.current_level = levels[game_progression.level - 1]
+        //call the function below to update the question portion and the li
         gameProgressionUI()
     },  
 }
@@ -195,7 +204,7 @@ const updateQuestionUI = () => {
 
 }
 
-const updateUIScore = (point) => {
+const updateUIScore = point => {
     
     score += point
     pointContainer.innerText = score
