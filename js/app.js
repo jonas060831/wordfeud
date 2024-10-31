@@ -172,7 +172,7 @@ export const levelGameMechanics = (inputValue, isAlreadyInAcceptedAnswerArray) =
 
             //finish the game in line 173 
             if(game_progression.current_level.required_number_of_correct_answer === accepted_answer.length && game_progression.level === 3) {
-                alert(`Congratulations You finished with a scored of : ${score}`)
+                alert(`Congratulations You finished with a score of : ${score}`)
                 location.reload()
             }
             
