@@ -18,7 +18,7 @@ body {
 nav {
     display: flex;
     justify-content: space-between;
-    height: 10vw;
+    height: 9vw;
     align-items: center;
     color: white;
 }

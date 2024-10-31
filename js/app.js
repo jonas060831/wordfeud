@@ -135,12 +135,18 @@ const game_progression = {
 export const levelGameMechanics = (inputValue, isAlreadyInAcceptedAnswerArray) => {
     //i want to check if the user input matches correct answer inside the array
     const result = checkIfAnswerHasMatch(inputValue)
+    const correctAnswerSound = document.createElement('audio')
+    const incorrectAnswerSound = document.createElement('audio')
 
+    correctAnswerSound.src = './public/music/correct_answer_sound.mp3'
+    incorrectAnswerSound.src = './public/music/incorrect_answer_sound.mp3'
     
     //if its in a correct answer
     //and it does not exist inside accepted_answer array
     if(result.matchFound && isNotInAcceptedAnswerArray(inputValue)) {
 
+
+        correctAnswerSound.play()
         //push it to answered array
         accepted_answer.push(inputValue)
 
@@ -174,17 +180,13 @@ export const levelGameMechanics = (inputValue, isAlreadyInAcceptedAnswerArray) =
         //so we cannot increase the score
         alert('you cannot repeat your answer')
     } else {
-        //no match add an x mark
-        alert('survey says no')
-
+        //play incorrect sound
+        incorrectAnswerSound.play()
         //increase the failed attempt
         failed_attempt++
 
         //clear the input text
         clearInputTextAnswer()
-
-        
-        
     }
 }
 
