@@ -156,7 +156,7 @@ nav {
 
 
 /* desktop only */
-@media (min-width: 768px) and (max-width: 5000px) {
+@media (min-width: 821px) and (max-width: 5000px) {
     
     .input_container {
         text-align: center;
@@ -169,12 +169,18 @@ nav {
 }
 
 /* tablet */
-@media (min-width: 481px) and (max-width: 767px) {
+/* i did a window.screen.availWidth and on my iPad it shows 820 on value so im gonnna up my max-width to from 767 to 820 also adjusting desktop min width from 768 to 821*/
+@media (min-width: 481px) and (max-width: 820px) {
     .logo-container img {
         width: 20%;
     }
+    .input_container {
+        text-align: left;
+        padding: 0rem 1rem 0rem 1rem;
+    }
 }
 /* phones */
+
 @media (min-width: 320px) and (max-width: 480px) {
     nav {
         margin-top: 1rem;
@@ -189,7 +195,7 @@ nav {
 
     .input_container {
         text-align: left;
-        padding: 0rem 1rem 0rem 1rem
+        padding: 0rem 1rem 0rem 1rem;
     }
     #point_container {
         width: 80px;
