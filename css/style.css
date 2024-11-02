@@ -131,7 +131,7 @@ nav {
 
 #list_of_answers_container ol {
     display: flex;
-    gap: 4rem;
+    gap: 2rem;
     flex-wrap: wrap;
     max-width: 700px;
     justify-content: space-between;
@@ -199,6 +199,7 @@ nav {
     }
     .logo-container img {
         width: 30%;
+        margin-top: 1rem;
     }
     #background_music {
         width: 15px;
@@ -217,17 +218,27 @@ nav {
     #question_container {
         font-size: 13px;
         text-align: center;
+
     }
     #list_of_answers_container ol {
-        width: 100%;
-        margin: 0;
-        margin-top: 6rem;
-        padding-top: 3rem;
-        padding-left: 35px;
-        padding-right: 30px;
-        padding-bottom: 2rem;
+        width: 95%;
     }
     #list_of_answers_container ol li {
         width: 145px;
+    }
+    .game_container {
+        flex-direction: column-reverse;
+        margin-top: 0;
+    }
+    #point_container {
+        margin: 0;
+        align-self: center;
+    }
+    #question_container {
+        margin: 0;
+        padding: 0;
+    }
+    #list_of_answers_container {
+        margin-top: 0rem;
     }
 }

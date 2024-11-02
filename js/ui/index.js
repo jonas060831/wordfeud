@@ -23,15 +23,14 @@ export const updateWrongAnswerLabel = (failed_attempt) => {
     x_mark_image.width = 50
     x_mark_image.height = 50
     x_mark_image.style.pointerEvents = 'none' 
-    
-    
 
     for (let index = 1; index <= failed_attempt; index++) {
-        //append the image to li
+        //create the li and then append the image to li
         const li = document.createElement('li')
         li.style.listStyleType = 'none'
-
+        
         li.appendChild(x_mark_image)
+
         ul.appendChild(li)
     }
     

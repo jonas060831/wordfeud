@@ -78,3 +78,86 @@ export const level_3 = {
         }
     ]
 }
+
+export const level_4 = {
+    host_said: `What's something people pretend to understand but actually don't?`,
+    required_number_of_correct_answer: 7,
+    array_of_answer_and_points: [
+        {
+            answer: 'taxes',
+            point: 25
+        },
+        {
+            answer: 'bitcoin',
+            point: 19
+        },
+        {
+            answer: 'wifi',
+            point: 17
+        },
+        {
+            answer: 'wine',
+            point: 14
+        },
+        {
+            answer: 'art',
+            point: 10
+        },
+        {
+            answer: 'fashion',
+            point: 7
+        },
+        {
+            answer: 'astrology',
+            point: 8
+        }
+    ]
+}
+
+export const level_5 = {
+    host_said: `Name something people always lose but never mean to.`,
+    required_number_of_correct_answer: 8,
+    array_of_answer_and_points: [
+        {
+            answer: 'keys',
+            point: 25
+        },
+        {
+            answer: 'phone',
+            point: 19
+        },
+        {
+            answer: 'wallet',
+            point: 17
+        },
+        {
+            answer: 'socks',
+            point: 14
+        },
+        {
+            answer: 'remote',
+            point: 10
+        },
+        {
+            answer: 'glasses',
+            point: 7
+        },
+        {
+            answer: 'patience',
+            point: 6
+        }
+        ,
+        {
+            answer: 'ring',
+            point: 2
+        }
+    ]
+}
+
+export const levels = [
+    level_1,
+    level_2,
+    level_3,
+    level_4,
+    level_5
+]

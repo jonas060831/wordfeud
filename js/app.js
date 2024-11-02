@@ -1,6 +1,6 @@
 //data
-import {level_1, level_2, level_3} from "./data.js";
-
+import {level_1, levels} from "./data.js";
+import { checkFailedAttempt } from './logic/index.js'
 import { clearInputTextAnswer, updateWrongAnswerLabel } from './ui/index.js'
 
 //index.html elements
@@ -20,7 +20,6 @@ let score = 0
 let failed_attempt = 0
 //array of correct answer provided by the user on each level this resets as well
 let accepted_answer = []
-
 
 //event listener for button clicks
 submitButton.addEventListener('click', handleSubmit)
@@ -51,7 +50,7 @@ function handleSubmit() {
 
     
     //each submit i check how many mistakes the user have
-    checkFailedAttempt()
+    checkFailedAttempt(failed_attempt)
 }
 
 function checkValidAnswerOnSpecificLevel() {
@@ -66,10 +65,8 @@ function checkValidAnswerOnSpecificLevel() {
     //if it exist inside accepted_array then this will return true
     const isAlreadyInAcceptedAnswerArray = !isNotInAcceptedAnswerArray(inputValue)
 
-
     //game level with type number inside game_progression object
-    if(level <= 3) levelGameMechanics(inputValue, isAlreadyInAcceptedAnswerArray)
-    
+    if(level <= levels.length) levelGameMechanics(inputValue, isAlreadyInAcceptedAnswerArray)
     
 }
 
@@ -106,7 +103,7 @@ const checkIfAnswerHasMatch = answerString => {
 
 // ********************* GAME PROGRESSION ********************* 
 
-const levels = [level_1, level_2, level_3]
+
 
 const game_progression = {
     level: 1,
@@ -161,8 +158,13 @@ export const levelGameMechanics = (inputValue, isAlreadyInAcceptedAnswerArray) =
             alert(`Congratulations You pass Level: ${game_progression.level}`)
 
             
-            //finish the game in line 173 
-            if(game_progression.current_level.required_number_of_correct_answer === accepted_answer.length && game_progression.level === 3) {
+            //finish the game in line 162
+            const currentLevelRequiredCorrectAnswer = game_progression.current_level.required_number_of_correct_answer
+            if(
+                currentLevelRequiredCorrectAnswer === accepted_answer.length
+                &&
+                game_progression.level === levels.length
+            ) {
                 alert(`Congratulations You finished with a score of : ${score}`)
                 location.reload()
             }
@@ -176,7 +178,6 @@ export const levelGameMechanics = (inputValue, isAlreadyInAcceptedAnswerArray) =
 
             //go to next level
             game_progression.goToNextLevel()
-
         }
 
     }  else if (isAlreadyInAcceptedAnswerArray) { 
@@ -239,6 +240,7 @@ const updateUIListOfAnswers = () => {
          color: black;
          font-size: larger;
          float: right;
+         font-weight: bolder;
          background-color: white;
          height: 100%;
          display: flex;
@@ -254,22 +256,8 @@ const updateUIListOfAnswers = () => {
         ol.appendChild(li)
 
     })
-
-
     list_of_answers_container.appendChild(ol)
     
-}
-
-
-
-const checkFailedAttempt = () => {
-    
-    if(failed_attempt === 3) {
-        alert(`sorry you lose with score of: ${score}\n\ngame will restart`)
-
-        //restart the game
-        location.reload()
-    }
 }
 
 gameProgressionUI()
