@@ -23,6 +23,10 @@ nav {
     color: white;
 }
 
+.logo-container {
+    cursor: pointer;
+}
+
 .intro_container {
     background-color: var(--game_main_color);
     height: 80vh;
@@ -265,6 +269,14 @@ nav {
     align-items: center;
     justify-content: center;
     gap: 1rem
+}
+
+#view_dashboard_p {
+    cursor: pointer;
+}
+
+#view_dashboard_p:hover {
+    color: green;
 }
 
 /* desktop only */

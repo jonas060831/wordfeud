@@ -6,6 +6,7 @@ import { clearInputTextAnswer, updateWrongAnswerLabel, showLeaderBoard } from '.
 //index.html elements
 const gameAndInputScreen= document.querySelector('.game_and_input_container')
 const startButton = document.querySelector('#start_button')
+const viewDashboardP = document.querySelector('#view_dashboard_p')
 const backgroundMusic = document.createElement('audio')
 backgroundMusic.src = './public/music/familyfeud_background_music.mp3'
 backgroundMusic.loop = true;
@@ -29,9 +30,11 @@ let failed_attempt = 0
 //array of correct answer provided by the user on each level this resets as well
 let accepted_answer = []
 
-
 //event listener for the start button
 startButton.addEventListener('click', handleStartGameScreen)
+
+//event listener for the view dashboard
+viewDashboardP.addEventListener('click', handleViewDashboard)
 
 //event listener for button clicks
 submitButton.addEventListener('click', handleSubmit)
@@ -39,11 +42,14 @@ submitButton.addEventListener('click', handleSubmit)
 //this event listener is a better approach compared to the one where i attach on the whole document
 input_text_answer.addEventListener('keydown', (event) => event.key === 'Enter' ? handleSubmit() : null)
 
-
-
 function handleStartGameScreen() {
     backgroundMusic.play()
     screen = 1
+    gameProgressionUI()
+}
+function handleViewDashboard() {
+    backgroundMusic.play()
+    screen = 2
     gameProgressionUI()
 }
 
@@ -219,6 +225,7 @@ function gameProgressionUI() {
         introScreen.style.display = 'flex'
         //and hide all other screen
         gameAndInputScreen.style.display = 'none'
+        leaderBoardScreen.style.display = 'none'
     }else if(screen === 1) {
         //intro screen
         introScreen.style.display = 'none'
