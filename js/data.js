@@ -57,7 +57,7 @@ export const level_2 = {
 }
 
 export const level_3 = {
-    host_said: `favourite food of the American People. \n\nSurvey says.`,
+    host_said: `Name 4 favourite food of the American People. \n\nSurvey says.`,
     required_number_of_correct_answer: 4,
     array_of_answer_and_points: [
         {

@@ -33,6 +33,7 @@ nav {
     justify-content: center;
     gap: 1rem;
     color: white;
+    /* border-top: 1px dotted red; */ 
 }
 
 #input_text_and_button {
@@ -56,10 +57,12 @@ nav {
     outline: none;
     font-size: 16px;
     font-family: Rammetto One,system-ui,Arial;
+    caret-color: orange; /* https://www.geeksforgeeks.org/how-to-change-cursor-color-using-css/ */
 }
 
 .input_container [type='text']:focus {
     border-color: orange;
+    color: orange;
 }
 
 .input_container [type='button'] {
@@ -154,6 +157,14 @@ nav {
 }
 
 
+#wrong_answer_indicator {
+    height: 2.5rem;
+    visibility: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+
 
 /* desktop only */
 @media (min-width: 821px) and (max-width: 5000px) {
@@ -165,21 +176,22 @@ nav {
         width: 20%;
         margin-top: 20px;
     }
-    
 }
 
-/* tablet */
+/* tablet only */
 /* i did a window.screen.availWidth and on my iPad it shows 820 on value so im gonnna up my max-width to from 767 to 820 also adjusting desktop min width from 768 to 821*/
 @media (min-width: 481px) and (max-width: 820px) {
     .logo-container img {
         width: 20%;
+        margin-top: 2rem;
     }
     .input_container {
         text-align: left;
-        padding: 0rem 1rem 0rem 1rem;
+        padding: 0rem 5rem 0rem 5rem;
     }
+
 }
-/* phones */
+/* mobile only */
 
 @media (min-width: 320px) and (max-width: 480px) {
     nav {

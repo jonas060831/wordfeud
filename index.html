@@ -12,11 +12,14 @@
     <!-- navbar -->
     <nav>
         <div class="logo-container">
-            <img src="./public/images/word_feud_logo.png" alt="">
+            <img
+             src="./public/images/word_feud_logo.png"
+             alt="game logo"
+            >
         </div>
 
         <!-- added audio controls on the nav bar -->
-        <audio
+        <!-- <audio
          id="background_music"
          controls
          autoplay
@@ -26,14 +29,14 @@
              src="./public/music/familyfeud_background_music.mp3"
              type="audio/mpeg"
             >
-        </audio>
+        </audio> -->
     </nav>
 
 
     <!-- game body -->
     <div class="game_container">
 
-        <div id="point_container">0</div>
+        <div id="point_container"></div>
 
         <div id="question_container"></div>
 
@@ -42,15 +45,15 @@
 
     <!-- input container with fixed position on the screen-->
     <div class="input_container">
-        
-        <div id="your_answer_label" style="visibility: hidden;">
-            Wrong Answer:
-        </div>
+        <!-- your_answer_label -->
+        <div id="wrong_answer_indicator"></div>
+
         <div id="input_text_and_button">
             <input
              id="input_text_answer"
              type="text"
              autocomplete="off"
+             
             >
             <input
              id="submit_button"
@@ -60,8 +63,9 @@
         </div>
     </div>
 
-    <script>
+    <!-- <script>
         alert(window.screen.availWidth)
-    </script>
+    </script> -->
+    
 </body>
 </html>
