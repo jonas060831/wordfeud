@@ -1,9 +1,11 @@
 //data
-import {level_1, levels} from "./data.js";
-import { checkFailedAttempt } from './logic/index.js'
-import { clearInputTextAnswer, updateWrongAnswerLabel } from './ui/index.js'
+import {level_1, levels} from "./data/game.js";
+import { checkFailedAttempt, checkIfAnswerHasMatch } from './logic/index.js'
+import { clearInputTextAnswer, updateWrongAnswerLabel, showLeaderBoard } from './ui/index.js'
 
 //index.html elements
+const gameAndInputScreen= document.querySelector('.game_and_input_container')
+const startButton = document.querySelector('#start_button')
 const backgroundMusic = document.createElement('audio')
 backgroundMusic.src = './public/music/familyfeud_background_music.mp3'
 backgroundMusic.loop = true;
@@ -12,7 +14,13 @@ const pointContainer = document.querySelector('#point_container')
 const questionContainer = document.querySelector('#question_container')
 const list_of_answers_container = document.querySelector('#list_of_answers_container')
 
+//the screen when the game loads
+let introScreen = document.querySelector('.intro_container')
 
+let leaderBoardScreen = document.querySelector('.leader_board_container')
+
+//screen 0 is introScreen, 1 is the gameAndInputScreen, leaderBoardScreen, goodByeScreen
+let screen = 0
 
 //user score across all levels
 let score = 0
@@ -21,12 +29,23 @@ let failed_attempt = 0
 //array of correct answer provided by the user on each level this resets as well
 let accepted_answer = []
 
+
+//event listener for the start button
+startButton.addEventListener('click', handleStartGameScreen)
+
 //event listener for button clicks
 submitButton.addEventListener('click', handleSubmit)
 
 //this event listener is a better approach compared to the one where i attach on the whole document
 input_text_answer.addEventListener('keydown', (event) => event.key === 'Enter' ? handleSubmit() : null)
 
+
+
+function handleStartGameScreen() {
+    backgroundMusic.play()
+    screen = 1
+    gameProgressionUI()
+}
 
 function handleSubmit() {
     //play the music
@@ -51,6 +70,13 @@ function handleSubmit() {
     
     //each submit i check how many mistakes the user have
     checkFailedAttempt(failed_attempt)
+
+    if(failed_attempt === 3) {
+        screen = 2
+        setTimeout(() => {
+            gameProgressionUI()
+        },4000)
+    }
 }
 
 function checkValidAnswerOnSpecificLevel() {
@@ -81,30 +107,9 @@ const isNotInAcceptedAnswerArray = (answerString) => {
 
 }
 
-const checkIfAnswerHasMatch = answerString => {
-    
-    let matchFound = false
-    let point = 0
-    let answer = ''
-    game_progression.current_level.array_of_answer_and_points.find( option => {
-        
-        if(option.answer === answerString) {
-            //there is a match increase score
-            matchFound = true
-            point = option.point
-            answer = option.answer
-            
-        }
-    })
-
-    return { matchFound, point, answer }
-}
 
 
-// ********************* GAME PROGRESSION ********************* 
-
-
-
+// ********************* GAME PROGRESSION START ********************* 
 const game_progression = {
     level: 1,
     score: score,
@@ -117,16 +122,12 @@ const game_progression = {
         gameProgressionUI()
     },  
 }
-
-// ********************* GAME PROGRESSION ********************* 
-
-
-
+// ********************* GAME PROGRESSION END ********************* 
 
 
 export const levelGameMechanics = (inputValue, isAlreadyInAcceptedAnswerArray) => {
     //i want to check if the user input matches correct answer inside the array
-    const result = checkIfAnswerHasMatch(inputValue)
+    const result = checkIfAnswerHasMatch(inputValue, game_progression)
     const correctAnswerSound = document.createElement('audio')
     const incorrectAnswerSound = document.createElement('audio')
 
@@ -147,7 +148,11 @@ export const levelGameMechanics = (inputValue, isAlreadyInAcceptedAnswerArray) =
 
         //update the ui so the correct answer will reveal by changing the text color
         let liCorrectAnswer = document.querySelector(`.${result.answer}`)
-        liCorrectAnswer.style.color = 'white'
+        // liCorrectAnswer.style.color = 'white'
+        liCorrectAnswer.style
+
+
+        liCorrectAnswer.innerHTML = `${result.answer.toUpperCase()} <span id='point_bubble'>${result.point}</span>`
 
         //after correct answer go and focus the cursor to the input
         //https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus
@@ -166,7 +171,10 @@ export const levelGameMechanics = (inputValue, isAlreadyInAcceptedAnswerArray) =
                 game_progression.level === levels.length
             ) {
                 alert(`Congratulations You finished with a score of : ${score}`)
-                location.reload()
+
+                //go to leaderboard screen
+                screen = 2
+                //location.reload()
             }
             
             //reset accepted answer array
@@ -194,15 +202,37 @@ export const levelGameMechanics = (inputValue, isAlreadyInAcceptedAnswerArray) =
 
         //increase the failed attempt
         failed_attempt++
-        //executes after 3 seconds
+        //executes after 2 seconds
         setTimeout(() => updateWrongAnswerLabel(failed_attempt) ,2000)
+
+        
         
     }
 }
 
 //all about ui
-
 function gameProgressionUI() {
+
+    //gameAndInputContainer
+    if(screen === 0) {
+        //show intro screen
+        introScreen.style.display = 'flex'
+        //and hide all other screen
+        gameAndInputScreen.style.display = 'none'
+    }else if(screen === 1) {
+        //intro screen
+        introScreen.style.display = 'none'
+        //gameScreen
+        gameAndInputScreen.style.display = 'flex'
+    } else if(screen === 2){
+        //leaderBoardScreen
+        introScreen.style.display = 'none'
+        gameAndInputScreen.style.display = 'none'
+        leaderBoardScreen.style.display = 'flex'
+        showLeaderBoard(score)
+    } else {
+        //goodbye screen
+    }
 
     updateQuestionUI()
     updateUIListOfAnswers()
@@ -231,33 +261,13 @@ const updateUIListOfAnswers = () => {
 
         //i now have the value now i need to add it to li
         const li = document.createElement('li')
-        //so it will blend in the background and wont be visible
-        li.style.color = 'var(--game_main_color)'
-        li.classList.add(`${option.answer}`)
-        const stringSpan = `
-        <span
-         style="
-         color: black;
-         font-size: larger;
-         float: right;
-         font-weight: bolder;
-         background-color: white;
-         height: 100%;
-         display: flex;
-         padding: 0rem 10px 0rem 10px;
-         align-items: center;
-         border-radius: 0px 10px 10px 0px
-         "
-        >
-         ${option.point}
-         </span>
-        `
-        li.innerHTML = `${option.answer.toUpperCase()} ${stringSpan}`
-        ol.appendChild(li)
 
+        li.classList.add(`${option.answer}`)
+
+        const stringSpan = `<span id="point_bubble" >${option.point}</span>`
+        //i need the empty space &nbsp because im using float
+        li.innerHTML = `&nbsp; ${stringSpan}`
+        ol.appendChild(li)
     })
     list_of_answers_container.appendChild(ol)
-    
 }
-
-gameProgressionUI()

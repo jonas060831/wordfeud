@@ -32,38 +32,68 @@
         </audio> -->
     </nav>
 
+    <div class="intro_container">
+        
+        <button id="start_button">PLAY NOW</button>
 
-    <!-- game body -->
-    <div class="game_container">
-
-        <div id="point_container"></div>
-        
-        <div>&nbsp;</div>
-        
-        <div id="question_container"></div>
-        
-        <div>&nbsp;</div>
-        
-        <div id="list_of_answers_container"></div>
+        <p>game v.0.0.1</p>
     </div>
 
-    <!-- input container with fixed position on the screen-->
-    <div class="input_container">
-        <!-- your_answer_label -->
-        <div id="wrong_answer_indicator"></div>
+    <div class="game_and_input_container">
+        <!-- game body -->
+        <div class="game_container">
 
-        <div id="input_text_and_button">
-            <input
-             id="input_text_answer"
-             type="text"
-             autocomplete="off"
-             
-            >
-            <input
-             id="submit_button"
-             type="button"
-             value="SUBMIT"
-            >
+            <div id="point_container"></div>
+            
+            <div>&nbsp;</div>
+            
+            <div id="question_container"></div>
+            
+            <div>&nbsp;</div>
+            
+            <div id="list_of_answers_container"></div>
+        </div>
+
+        <!-- input container with fixed position on the screen-->
+        <div class="input_container">
+            <!-- your_answer_label -->
+            <div id="wrong_answer_indicator"></div>
+
+            <div id="input_text_and_button">
+                <input
+                id="input_text_answer"
+                type="text"
+                autocomplete="off"
+                
+                >
+                <input
+                id="submit_button"
+                type="button"
+                value="SUBMIT"
+                >
+            </div>
+        </div>
+    </div>
+
+    <div class="leader_board_container">
+        
+        <div class="leader_board_header_container">
+            <img src="./public/images/golden_trophy.gif" />
+            <h1>Leaderboard</h1>
+        </div>
+
+    </div>
+    
+
+    <div class="modal_view">
+        <div
+         class="modal_body"
+        >  
+            <div id="modal_title"></div>
+
+            <div id="modal_content"></div>
+            
+            <div id="modal_actions" ></div>
         </div>
     </div>
 
