@@ -2,6 +2,7 @@
 import {level_1, levels} from "./data/game.js";
 import { checkFailedAttempt, checkIfAnswerHasMatch } from './logic/index.js'
 import { clearInputTextAnswer, updateWrongAnswerLabel, showLeaderBoard } from './ui/index.js'
+import { modal } from "./component/modal.js";
 
 //index.html elements
 const gameAndInputScreen= document.querySelector('.game_and_input_container')
@@ -14,6 +15,8 @@ const submitButton = document.querySelector('#submit_button')
 const pointContainer = document.querySelector('#point_container')
 const questionContainer = document.querySelector('#question_container')
 const list_of_answers_container = document.querySelector('#list_of_answers_container')
+
+const modalOkButton = document.querySelector('#modal_ok_button')
 
 //the screen when the game loads
 let introScreen = document.querySelector('.intro_container')
@@ -36,11 +39,14 @@ startButton.addEventListener('click', handleStartGameScreen)
 //event listener for the view dashboard
 viewDashboardP.addEventListener('click', handleViewDashboard)
 
-//event listener for button clicks
+//event listener for submit button
 submitButton.addEventListener('click', handleSubmit)
 
 //this event listener is a better approach compared to the one where i attach on the whole document
 input_text_answer.addEventListener('keydown', (event) => event.key === 'Enter' ? handleSubmit() : null)
+
+//event listener for the ok button inside the modal
+modalOkButton.addEventListener('click', handleOkOnModal)
 
 function handleStartGameScreen() {
     backgroundMusic.play()
@@ -53,6 +59,10 @@ function handleViewDashboard() {
     gameProgressionUI()
 }
 
+function handleOkOnModal() {
+    modal('', '', false)
+}
+
 function handleSubmit() {
     //play the music
     backgroundMusic.play()
@@ -63,7 +73,7 @@ function handleSubmit() {
     if (inputValue === '') {
         //update the ui and remove the value if its empty string
         clearInputTextAnswer()
-        alert('input cannot be empty')
+        modal('Warning', 'Input Cannot be Empty', true)
     } else {
         //input is not empty check the array of valid answers
 
@@ -162,11 +172,15 @@ export const levelGameMechanics = (inputValue, isAlreadyInAcceptedAnswerArray) =
 
         //after correct answer go and focus the cursor to the input
         //https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus
-        input_text_answer.focus()
+        //input_text_answer.focus()
         
         
         if(game_progression.current_level.required_number_of_correct_answer === accepted_answer.length) {
-            alert(`Congratulations You pass Level: ${game_progression.level}`)
+            //alert(`Congratulations You pass Level: ${game_progression.level}`)
+
+            //test the modal
+            //do not show modal when user finished the last level
+            if(game_progression.level !== levels.length) modal('Congratulations', `You pass Level: ${game_progression.level}`, true)
 
             
             //finish the game in line 162
@@ -176,8 +190,7 @@ export const levelGameMechanics = (inputValue, isAlreadyInAcceptedAnswerArray) =
                 &&
                 game_progression.level === levels.length
             ) {
-                alert(`Congratulations You finished with a score of : ${score}`)
-
+                
                 //go to leaderboard screen
                 screen = 2
                 //location.reload()
@@ -197,7 +210,7 @@ export const levelGameMechanics = (inputValue, isAlreadyInAcceptedAnswerArray) =
     }  else if (isAlreadyInAcceptedAnswerArray) { 
         //there is a match but it already exist inside accepted_answer_array
         //so we cannot increase the score
-        alert('you cannot repeat your answer')
+        modal('Warning!', `You cannot repeat your answer`, true)
     } else {
 
         //clear the input text

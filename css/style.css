@@ -276,7 +276,48 @@ nav {
 }
 
 #view_dashboard_p:hover {
-    color: green;
+    color: orange;
+}
+
+.modal_overlay {
+    position:absolute;
+    color: white;
+    background: linear-gradient(rgba(40, 33, 169, 0.524), rgba(163, 121, 43, 0.464));
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal_body {
+    font-family: Rammetto One,system-ui, Arial;
+    background-color: var(--game_main_color);
+    border: 2px solid var(--game_border_color);
+    border-radius: 10px ;
+    padding: 2rem;
+    width: 400px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+#modal_actions button {
+    width: 80px;
+    height: 40px;
+    background-color: rgb(241, 168, 32);
+    border: 3px solid var(--game_border_color);
+    border-radius: 10px;
+    color: white;
+    font-family: Rammetto One,system-ui,Arial;
+    cursor: pointer;
+}
+
+#modal_actions button:hover {
+    background-color: rgb(71, 217, 71);
+    border: 3px solid white;
 }
 
 /* desktop only */

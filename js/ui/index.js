@@ -1,3 +1,4 @@
+import { modal } from '../component/modal.js'
 import { leaderBoard } from '../data/leaderboard.js'
 
 const inputTextAnswer = document.querySelector('#input_text_answer')
@@ -96,15 +97,24 @@ export const showLeaderBoard = (score) => {
 
         //if its you
         if(user.name === 'You') {
-            li.style.color = 'red'
+            li.style.color = 'green'
             li.style.background = 'linear-gradient(gold, rgb(253, 180, 33))'
         }
+
+        
 
         li.appendChild(imageAndNameDiv)
         li.appendChild(h3S)
         ul.appendChild(li)
     }
-    //you
+
+
+    //get your rank
+    const position = sortedLeaderBoard.findIndex(user => user.name === 'You')
+
+    if(position === 0) modal('Top Guy!', 'Congratulations You finished 1st', true)
+    if(position > 0 && position < sortedLeaderBoard.length - 1) modal('Great Effort!', `Congratulations You ranked ${position + 1}`, true)
+    if(position === sortedLeaderBoard.length - 1) modal('You Made it!', 'Better Luck next time!', true)
     leaderBoardContainerDiv.appendChild(ul)
 
     document.body.append(leaderBoardContainerDiv)
