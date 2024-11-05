@@ -114,6 +114,8 @@ function checkValidAnswerOnSpecificLevel() {
 
 const isNotInAcceptedAnswerArray = (answerString) => {
     let isNotInArray = true
+    
+
 
     accepted_answer.find( answer => {
         if(answerString === answer) isNotInArray = false

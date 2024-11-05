@@ -54,8 +54,17 @@ export const updateWrongAnswerLabel = (failed_attempt) => {
 export const showLeaderBoard = (score) => {
 
     const leaderBoardContainerDiv = document.querySelector('.leader_board_container')
-    
+    const leaderBoardContainerBody = document.querySelector('.leader_board_container_body')
     const ul = document.createElement('ul')
+    const backButton = document.createElement('button')
+    backButton.classList.add('dashboard_back_button')
+    backButton.innerText = '< back'
+
+    backButton.addEventListener('click', handleBack)
+
+    function handleBack() {
+        location.reload()
+    }
 
     //add your data to the leaderboard
     const you = { 
@@ -114,8 +123,11 @@ export const showLeaderBoard = (score) => {
 
     if(position === 0) modal('Top Guy!', 'Congratulations You finished 1st', true)
     if(position > 0 && position < sortedLeaderBoard.length - 1) modal('Great Effort!', `Congratulations You ranked ${position + 1}`, true)
-    if(position === sortedLeaderBoard.length - 1) modal('You Made it!', 'Better Luck next time!', true)
-    leaderBoardContainerDiv.appendChild(ul)
+    //if(position === sortedLeaderBoard.length - 1) modal('You Made it!', 'Better Luck next time!', true)
+    leaderBoardContainerBody.append(ul)
+    leaderBoardContainerDiv.appendChild(leaderBoardContainerBody)
+
+    leaderBoardContainerDiv.append(backButton)
 
     document.body.append(leaderBoardContainerDiv)
 }

@@ -320,6 +320,22 @@ nav {
     border: 3px solid white;
 }
 
+
+
+.dashboard_back_button {
+    background: none;
+    color: white;
+    font-family: Rammetto One, Arial;
+    border: none;
+    font-size: larger;
+    margin-top: 1rem;
+    cursor: pointer;
+}
+
+.dashboard_back_button:hover {
+    color: orange;
+}
+
 /* desktop only */
 @media (min-width: 821px) and (max-width: 5000px) {
     
@@ -399,5 +415,11 @@ nav {
         margin: 0;
         padding: 0;
     }
-    
+
+    .leader_board_container {
+        width: 90vw;
+    }
+    .leader_board_container h1 {
+        font-size:larger
+    }
 }
